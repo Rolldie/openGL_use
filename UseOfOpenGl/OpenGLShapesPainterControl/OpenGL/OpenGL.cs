@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace OpenGLShapesPainterControl
 {
-    [ToolboxItem(false), DefaultEvent("Dummy")]
+   // [ToolboxItem(false), DefaultEvent("Dummy")]
     public partial class OpenGL : UserControl
     {
         public const int CS_VREDRAW = 0x01;
@@ -23,6 +23,10 @@ namespace OpenGLShapesPainterControl
         private string errorMessage;
         protected bool hideDesigner = true;
 
+        public delegate void RenderEvent();
+        public event RenderEvent OnUpdatePicture;
+
+
         public OpenGL()
         {
             InitializeComponent();
@@ -32,6 +36,8 @@ namespace OpenGLShapesPainterControl
         public OpenGL(bool flag)
         {
             hideDesigner = flag;
+
+            OnUpdatePicture += OnRender;
             InitializeComponent();
             InitializationOpenGL();
         }
@@ -129,7 +135,7 @@ namespace OpenGLShapesPainterControl
             try
             {
                 OnStartingOpenGL();
-                OnRender();
+                OnUpdatePicture.Invoke();
             }
             catch (Exception x)
             {
@@ -149,17 +155,16 @@ namespace OpenGLShapesPainterControl
             ulong counter = 0;
 #endif
 
-        private void OnPaint(object sender, PaintEventArgs e)
+        public void OnPaint(object sender, PaintEventArgs e)
         {
 #if PERFORMANCE
                 sw.Start();
 #endif
 
             IntPtr hDC = glBeginPaint(e.Graphics);
-
             try
             {
-                OnRender();
+                OnUpdatePicture.Invoke();
             }
             catch (Exception x)
             {
@@ -175,7 +180,6 @@ namespace OpenGLShapesPainterControl
                 Debug.WriteLine("FPS = " + ((++counter * 1000.0) / sw.ElapsedMilliseconds).ToString());
 #endif
         }
-
         private IntPtr glBeginPaint(Graphics g)
         {
             IntPtr hDC = g.GetHdc();

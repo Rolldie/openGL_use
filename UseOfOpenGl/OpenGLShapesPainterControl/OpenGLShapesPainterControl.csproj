@@ -61,6 +61,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algoritm\PointPaint.cs" />
+    <Compile Include="Algoritm\LinePaint.cs" />
+    <Compile Include="Algoritm\ShapePaint.cs" />
+    <Compile Include="Algoritm\IPaintAlgoritm.cs" />
+    <Compile Include="Classes\FloatPoint.cs" />
+    <Compile Include="Classes\Point.cs" />
+    <Compile Include="Classes\Shape.cs" />
+    <Compile Include="Classes\GLGraphRenderer.cs" />
+    <Compile Include="Classes\Line.cs" />
+    <Compile Include="Classes\LinePoints.cs" />
+    <Compile Include="Classes\Element.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +159,7 @@
   <ItemGroup>
     <Content Include="RenderControl.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

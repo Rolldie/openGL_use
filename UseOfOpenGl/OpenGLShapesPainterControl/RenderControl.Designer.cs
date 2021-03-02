@@ -1,7 +1,7 @@
 ﻿
 namespace OpenGLShapesPainterControl
 {
-    partial class RenderControl
+    public partial class RenderControl
     {
         /// <summary> 
         /// Required designer variable.
